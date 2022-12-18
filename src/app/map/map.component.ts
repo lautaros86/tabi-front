@@ -13,6 +13,12 @@ export interface Barrio {
   poligono: number[][][]
 }
 
+export interface Punto {
+  es_PD: boolean;
+  coordenadas: number[];
+  nombre: string;
+}
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -20,12 +26,13 @@ export interface Barrio {
 })
 export class MapComponent implements OnInit {
   center: number[] = [];
-  markers: number[][] = [];
+  markers: Punto[] = [];
   polygons: number[][][][] = [];
   zonas: Barrio[] = []
 
   constructor(private dataService: DataService) {
   }
+
   ngOnInit() {
     this.center = [-34.92145, -57.95453]
     this.cargarPuntos()
@@ -34,7 +41,11 @@ export class MapComponent implements OnInit {
 
   cargarPuntos() {
     this.dataService.getPuntos().subscribe(
-      (data: any) => this.markers = data.data.map((p: any) => [p.latitud, p.longitud])
+      (data: any) => this.markers = data.data.map( (m: any) => ({
+        coordenadas: [m.latitud, m.longitud],
+        nombre: m.nombre,
+        es_PD: m.es_PD
+      }))
     )
   }
 
@@ -42,10 +53,7 @@ export class MapComponent implements OnInit {
     this.dataService.getBarriosPuntos().subscribe(
       (data: any) => {
         this.zonas = data.data.map((barrio: any) => {
-          var poligono = []
-          if(barrio.id_renabap == 273) {
-            console.log("frena")
-          }
+          let poligono = []
           try {
             poligono = JSON.parse(barrio.geometry
               .replace('MULTIPOLYGON ', '')
