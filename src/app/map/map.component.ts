@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {BARRIOS_PUNTOS} from './BarriosPuntos'
-import {PUNTOS} from './Puntos'
-import {latLng, tileLayer} from "leaflet";
+import {PUNTOS} from './data/Puntos'
+import {BARRIOS_PUNTOS} from "./data/BarriosPuntos";
 
 export interface Barrio {
   personas_genero_fem: number
@@ -35,7 +34,7 @@ export class MapComponent implements OnInit {
   }
 
   cargarPuntos() {
-    this.markers = this.puntos.puntos.map(p => [p.latitud, p.longitud])
+    this.markers = this.puntos.data.map(p => [p.latitud, p.longitud])
   }
 
   cargarBarrios() {
