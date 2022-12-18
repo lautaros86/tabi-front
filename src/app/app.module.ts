@@ -16,6 +16,8 @@ import {LeafletMarkerClusterModule} from "@asymmetrik/ngx-leaflet-markercluster"
 import {HttpClientModule} from "@angular/common/http";
 import { NgChartsModule } from 'ng2-charts';
 import { BarriosEnTiempoComponent } from './charts/barrios-en-tiempo/barrios-en-tiempo.component';
+import { RangoDeEdadComponent } from './charts/rango-de-edad/rango-de-edad.component';
+import { GraficoComponent } from './charts/grafico/grafico.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { BarriosEnTiempoComponent } from './charts/barrios-en-tiempo/barrios-en-
     MapComponent,
     LeafletComponent,
     ChartsComponent,
-    BarriosEnTiempoComponent
+    BarriosEnTiempoComponent,
+    RangoDeEdadComponent,
+    GraficoComponent
   ],
   imports: [
     BrowserModule,

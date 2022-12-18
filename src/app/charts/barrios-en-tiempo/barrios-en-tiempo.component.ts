@@ -30,13 +30,6 @@ export class BarriosEnTiempoComponent {
   };
   public lineChartLegend = true;
 
-  constructor() {
-  }
-
-  ngOnInit() {
-
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['data'] && changes['data'].previousValue != changes['data'].currentValue) {
       this.loadData()
