@@ -8,6 +8,10 @@ import { HeaderComponent } from './shell/header/header.component';
 import { FooterComponent } from './shell/footer/footer.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { IndexComponent } from './index/index.component';
+import { LeafletComponent } from './map/leaflet/leaflet.component';
+import { MapComponent } from "./map/map.component";
+import {ChartsComponent} from "./charts/charts.component";
+import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 
 @NgModule({
   declarations: [
@@ -16,11 +20,15 @@ import { IndexComponent } from './index/index.component';
     HeaderComponent,
     FooterComponent,
     NotFoundComponent,
-    IndexComponent
+    IndexComponent,
+    MapComponent,
+    LeafletComponent,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    LeafletModule
   ],
   providers: [],
   bootstrap: [AppComponent]

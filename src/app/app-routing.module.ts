@@ -2,17 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {NotFoundComponent} from "./not-found/not-found.component";
 import {IndexComponent} from "./index/index.component";
+import {MapComponent} from "./map/map.component";
+import {ChartsComponent} from "./charts/charts.component";
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
-  {
-    path: 'map',
-    loadChildren: () => import('./map/map-routing.module').then(m => m.MapRoutingModule)
-  },
-  {
-    path: 'charts',
-    loadChildren: () => import('./charts/charts-routing.module').then(m => m.ChartsRoutingModule)
-  },
+  { path: 'map', component: MapComponent },
+  { path: 'charts', component: ChartsComponent },
   { path: '**', component: NotFoundComponent },  // Wildcard route for a 404 page
 ];
 
