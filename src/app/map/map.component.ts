@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from "../data.service";
 
-export interface Barrio {
+export interface BarrioPunto {
   personas_genero_fem: number
   id_renabap: number
   cantidad_familias_aproximada: number
@@ -28,7 +28,7 @@ export class MapComponent implements OnInit {
   center: number[] = [];
   markers: Punto[] = [];
   polygons: number[][][][] = [];
-  zonas: Barrio[] = []
+  zonas: BarrioPunto[] = []
 
   constructor(private dataService: DataService) {
   }

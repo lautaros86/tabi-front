@@ -5,7 +5,7 @@ import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import {Control} from 'leaflet';
 import LayersOptions = Control.LayersOptions;
-import {Barrio, Punto} from "../map.component";
+import {BarrioPunto, Punto} from "../map.component";
 
 
 @Component({
@@ -17,7 +17,7 @@ export class LeafletComponent implements OnInit, OnChanges {
   @Input() center: number[] = [-34.92145, -57.95453];
   @Input() markers: Punto[] = []
   @Input() polygons: number[][][][] = []
-  @Input() zonas: Barrio[] = []
+  @Input() zonas: BarrioPunto[] = []
   areas: any = []
 
   // Open Street Map Definition
@@ -116,7 +116,7 @@ export class LeafletComponent implements OnInit, OnChanges {
 
   }
 
-  private getAreaColor(barrio: Barrio) {
+  private getAreaColor(barrio: BarrioPunto) {
     let cantPersonas = barrio.personas_genero_fem + barrio.personas_genero_masc + barrio.personas_genero_otrx
     let color = ''
     switch (true) {

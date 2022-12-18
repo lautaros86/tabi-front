@@ -14,6 +14,8 @@ import {ChartsComponent} from "./charts/charts.component";
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import {LeafletMarkerClusterModule} from "@asymmetrik/ngx-leaflet-markercluster";
 import {HttpClientModule} from "@angular/common/http";
+import { NgChartsModule } from 'ng2-charts';
+import { BarriosEnTiempoComponent } from './charts/barrios-en-tiempo/barrios-en-tiempo.component';
 
 @NgModule({
   declarations: [
@@ -25,14 +27,16 @@ import {HttpClientModule} from "@angular/common/http";
     IndexComponent,
     MapComponent,
     LeafletComponent,
-    ChartsComponent
+    ChartsComponent,
+    BarriosEnTiempoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LeafletModule,
     LeafletMarkerClusterModule,
-    HttpClientModule
+    HttpClientModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
