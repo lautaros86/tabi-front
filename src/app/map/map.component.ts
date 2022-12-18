@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PUNTOS} from './data/Puntos'
-import {BARRIOS_PUNTOS} from "./data/BarriosPuntos";
+import {DataService} from "../data.service";
 
 export interface Barrio {
   personas_genero_fem: number
@@ -24,9 +23,9 @@ export class MapComponent implements OnInit {
   markers: number[][] = [];
   polygons: number[][][][] = [];
   zonas: Barrio[] = []
-  barrios = BARRIOS_PUNTOS
-  puntos = PUNTOS
 
+  constructor(private dataService: DataService) {
+  }
   ngOnInit() {
     this.center = [-34.92145, -57.95453]
     this.cargarPuntos()
@@ -34,28 +33,33 @@ export class MapComponent implements OnInit {
   }
 
   cargarPuntos() {
-    this.markers = this.puntos.data.map(p => [p.latitud, p.longitud])
+    this.dataService.getPuntos().subscribe(
+      (data: any) => this.markers = data.data.map((p: any) => [p.latitud, p.longitud])
+    )
   }
 
   cargarBarrios() {
-    this.zonas = this.barrios.data.map(barrio => {
-        var poligono = []
-      if(barrio.id_renabap == 273) {
-        console.log("frena")
-      }
-        try {
-          poligono = JSON.parse(barrio.geometry
-            .replace('MULTIPOLYGON ', '')
-            .replaceAll('(', '[')
-            .replaceAll(')', ']')
-            .replaceAll(', ', '],[')
-            .replaceAll(' ', ', ')
-            .replaceAll(']]],[[[', ']],[[')
-          )
-        } catch (e) {
-          console.log("fallo el mapeo de " + barrio)
-        }
-        return {...barrio, poligono}
+    this.dataService.getBarriosPuntos().subscribe(
+      (data: any) => {
+        this.zonas = data.data.map((barrio: any) => {
+          var poligono = []
+          if(barrio.id_renabap == 273) {
+            console.log("frena")
+          }
+          try {
+            poligono = JSON.parse(barrio.geometry
+              .replace('MULTIPOLYGON ', '')
+              .replaceAll('(', '[')
+              .replaceAll(')', ']')
+              .replaceAll(', ', '],[')
+              .replaceAll(' ', ', ')
+              .replaceAll(']]],[[[', ']],[[')
+            )
+          } catch (e) {
+            console.log("fallo el mapeo de " + barrio)
+          }
+          return {...barrio, poligono}
+        })
       }
     )
 

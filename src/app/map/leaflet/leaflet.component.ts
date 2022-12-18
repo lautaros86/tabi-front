@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {LatLng, marker, polygon} from "leaflet";
 
 import * as L from 'leaflet';
@@ -13,7 +13,7 @@ import {Barrio} from "../map.component";
   templateUrl: './leaflet.component.html',
   styleUrls: ['./leaflet.component.scss']
 })
-export class LeafletComponent implements OnInit {
+export class LeafletComponent implements OnInit, OnChanges {
   @Input() center: number[] = [-34.92145, -57.95453];
   @Input() markers: number[][] = []
   @Input() polygons: number[][][][] = []
@@ -48,10 +48,37 @@ export class LeafletComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshData();
+    this.renderAreas()
+  }
 
+  ngOnChanges(changes: SimpleChanges) {
+      this.refreshData()
+  }
 
-    const comparador: number[] = [0, 0, 0, 0, 0]
+  markerClusterReady(group: L.MarkerClusterGroup) {
 
+    this.markerClusterGroup = group;
+
+  }
+
+  refreshData(): void {
+    this.markerClusterData = this.renderPutnos();
+    this.renderAreas()
+  }
+
+  renderPutnos(): L.Marker[] {
+
+    const data: L.Marker[] = []
+    this.markers.forEach((m) => {
+      var esta = data.find(e => e.getLatLng().lat == m[0] && e.getLatLng().lng == m[1])
+      if (!esta)
+        data.push(marker(new LatLng(m[0], m[1])))
+    });
+    return data;
+
+  }
+
+  renderAreas() {
     this.zonas.forEach((barrio) => {
       var cantPersonas = barrio.personas_genero_fem + barrio.personas_genero_masc + barrio.personas_genero_otrx
       if (barrio.id_renabap == 273 || barrio.nombre_barrio=='Santa Catalina') {
@@ -60,23 +87,18 @@ export class LeafletComponent implements OnInit {
       var color = ''
       switch (true) {
         case (cantPersonas <= 3300):
-          comparador[0] = comparador[0] + 1
           color = '#fb6a4a'
           break;
         case (3301 <= cantPersonas && cantPersonas <= 6600):
-          comparador[1] = comparador[1] + 1
           color = '#ef3b2c'
           break;
         case (6601 <= cantPersonas && cantPersonas <= 9900):
-          comparador[2] = comparador[2] + 1
           color = '#cb181d'
           break;
         case (9901 <= cantPersonas && cantPersonas <= 13200):
-          comparador[3] = comparador[3] + 1
           color = '#a50f15'
           break;
         default:
-          comparador[4] = comparador[4] + 1
           color = '#67000d'
           break;
       }
@@ -91,29 +113,7 @@ export class LeafletComponent implements OnInit {
         var latlngs = polygonData.map(p => new LatLng(p[1], p[0]))
         this.areas.push(polygon(latlngs, {color: color, fillOpacity: 0.6}).bindPopup(popup))
       })
-      console.log(comparador)
     })
-  }
-
-  markerClusterReady(group: L.MarkerClusterGroup) {
-
-    this.markerClusterGroup = group;
-
-  }
-
-  refreshData(): void {
-    this.markerClusterData = this.generateData(1000);
-  }
-
-  generateData(count: number): L.Marker[] {
-
-    const data: L.Marker[] = []
-    this.markers.forEach((m) => {
-      var esta = data.find(e => e.getLatLng().lat == m[0] && e.getLatLng().lng == m[1])
-      if (!esta)
-        data.push(marker(new LatLng(m[0], m[1])))
-    });
-    return data;
 
   }
 }

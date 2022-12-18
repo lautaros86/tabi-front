@@ -13,6 +13,7 @@ import { MapComponent } from "./map/map.component";
 import {ChartsComponent} from "./charts/charts.component";
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import {LeafletMarkerClusterModule} from "@asymmetrik/ngx-leaflet-markercluster";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {LeafletMarkerClusterModule} from "@asymmetrik/ngx-leaflet-markercluster"
     BrowserModule,
     AppRoutingModule,
     LeafletModule,
-    LeafletMarkerClusterModule
+    LeafletMarkerClusterModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
