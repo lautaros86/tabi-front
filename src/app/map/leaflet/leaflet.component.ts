@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LatLng, latLng, marker, polygon, tileLayer} from "leaflet";
 
+
 @Component({
   selector: 'app-leaflet',
   templateUrl: './leaflet.component.html',
@@ -12,6 +13,7 @@ export class LeafletComponent implements OnInit {
   @Input() polygons: number[][][][] = []
   options = {}
   layers: any  = []
+  puntos: any = []
   ngOnInit(): void {
 
     this.options = {
@@ -30,7 +32,6 @@ export class LeafletComponent implements OnInit {
     })
 
     this.markers.forEach((m) => this.layers.push(marker(new LatLng(m[0], m[1]))))
+
   }
-
-
 }
