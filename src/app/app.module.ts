@@ -7,7 +7,6 @@ import { NavBarComponent } from './shell/nav-bar/nav-bar.component';
 import { HeaderComponent } from './shell/header/header.component';
 import { FooterComponent } from './shell/footer/footer.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { IndexComponent } from './index/index.component';
 import { LeafletComponent } from './map/leaflet/leaflet.component';
 import { MapComponent } from "./map/map.component";
 import {ChartsComponent} from "./charts/charts.component";
@@ -26,7 +25,6 @@ import { TotalizadoresComponent } from './charts/totalizadores/totalizadores.com
     HeaderComponent,
     FooterComponent,
     NotFoundComponent,
-    IndexComponent,
     MapComponent,
     LeafletComponent,
     ChartsComponent,
