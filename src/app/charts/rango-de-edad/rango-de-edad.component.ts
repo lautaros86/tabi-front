@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Barrio} from "../barrio";
-import {ChartOptions} from "chart.js";
+import {ChartConfiguration} from "chart.js";
 
 @Component({
   selector: 'app-rango-de-edad',
@@ -9,36 +9,22 @@ import {ChartOptions} from "chart.js";
 })
 export class RangoDeEdadComponent implements OnChanges {
   @Input() data: Barrio[] = []
-  title = 'ng2-charts-demo';
+  title = 'Tangos de edad';
 
-  // Pie
-  public pieChartOptions: ChartOptions<'pie'> = {
+  public barChartLegend = true;
+  public barChartPlugins = [];
+
+  public barChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [ '2006', '2007', '2008', '2009', '2010', '2011', '2012' ],
+    datasets: [
+      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A' },
+      { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Series B' }
+    ]
+  };
+  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: false,
   };
-  public pieChartLabels = [
-    'rango de 0 a 4',
-    'rango de 5 a 9',
-    'rango de 10 a 14',
-    'rango de 15 a 19',
-    'rango de 20 a 24',
-    'rango de 25 a 29',
-    'rango de 30 a 34',
-    'rango de 35 a 39',
-    'rango de 40 a 44',
-    'rango de 45 a 49',
-    'rango de 50 a 54',
-    'rango de 55 a 59',
-    'rango de 60 a 64',
-    'rango de 65 a 69',
-    'rango de 70 a 74',
-    'rango de 75 a 79',
-    'mas de 80',
-  ];
-  public pieChartDatasets = [ {
-    data: []
-  } ];
-  public pieChartLegend = true;
-  public pieChartPlugins = [];
+
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['data'] && changes['data'].previousValue != changes['data'].currentValue) {
       this.loadData()
@@ -66,9 +52,29 @@ export class RangoDeEdadComponent implements OnChanges {
       total[15] = total[15] + barrio.rango_edad_75_a_79_anios
       total[16] = total[16] + barrio.rango_edad_80_o_mas_anios
     })
-    this.pieChartDatasets = [ {
-      // @ts-ignore
-      data: total
-    } ];
+    this.barChartData = {
+      labels: [
+        '0 a 4',
+        '5 a 9',
+        '10 a 14',
+        '15 a 19',
+        '20 a 24',
+        '25 a 29',
+        '30 a 34',
+        '35 a 39',
+        '40 a 44',
+        '45 a 49',
+        '50 a 54',
+        '55 a 59',
+        '60 a 64',
+        '65 a 69',
+        '70 a 74',
+        '75 a 79',
+        '80+',
+      ],
+      datasets: [
+        { data: total, label: 'Total' },
+      ]
+    };
   }
 }

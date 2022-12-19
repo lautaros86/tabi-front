@@ -12,16 +12,15 @@
     </div>
   </div>
   <div class="card-body">
+
     <canvas baseChart
             style="min-height: 400px; height: 300px; max-height: 400px; max-width: 100%;"
-            [type]="'pie'"
-            [datasets]="pieChartDatasets"
-            [labels]="pieChartLabels"
-            [options]="pieChartOptions"
-            [plugins]="pieChartPlugins"
-            [legend]="pieChartLegend">
+            [data]="barChartData"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [type]="'bar'">
     </canvas>
-
   </div>
   <!-- /.card-body -->
 </div>

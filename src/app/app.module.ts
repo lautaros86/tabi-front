@@ -17,7 +17,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { NgChartsModule } from 'ng2-charts';
 import { BarriosEnTiempoComponent } from './charts/barrios-en-tiempo/barrios-en-tiempo.component';
 import { RangoDeEdadComponent } from './charts/rango-de-edad/rango-de-edad.component';
-import { GraficoComponent } from './charts/grafico/grafico.component';
+import { TotalizadoresComponent } from './charts/totalizadores/totalizadores.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { GraficoComponent } from './charts/grafico/grafico.component';
     ChartsComponent,
     BarriosEnTiempoComponent,
     RangoDeEdadComponent,
-    GraficoComponent
+    TotalizadoresComponent,
   ],
   imports: [
     BrowserModule,
